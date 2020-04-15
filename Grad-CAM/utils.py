@@ -15,11 +15,12 @@ def load_image(img_path, size=None):
     return img
 
 
-def preprocess_image(pil_img):
-    tensor = transforms.ToTensor()(pil_img)
-    tensor = torch.unsqueeze(tensor, dim=0)
+def preprocess_image(img, mean, std):
+    img_tensor = transforms.ToTensor()(img)
+    img_tensor = transforms.Normalize(mean, std)(img_tensor)
+    img_tensor = torch.unsqueeze(img_tensor, dim=0)
     
-    return tensor
+    return img_tensor
 
 
 def load_class_idx():
